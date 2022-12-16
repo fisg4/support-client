@@ -1,0 +1,46 @@
+/* Paleta de colores del logo:
+  Azul: #5343f1
+  Morado: #851ff8
+*/
+
+.bg-blue {
+  background-color: #5443f11b!important;
+}
+
+.border-purple {
+  border-color: #851ff8!important;
+}
+
+.text-purple {
+  color: #851ff8!important;
+}
+
+.btn:hover {
+  background-color: #5443f15f!important;
+  border-color:  #6a17c8!important;
+  color: #6a17c8!important;
+}
+
+.header-logo {
+  width: 80%;
+}
+
+@media (min-width: 768px) {
+    .header-logo {
+        width: 60%;
+    }
+    
+    .header-perfil {
+      width: 70%;
+    }
+}
+
+@media (min-width: 992px) {
+  .header-logo {
+      width: 40%;
+  }
+
+  .header-perfil {
+    width: 40%;
+  }
+}
