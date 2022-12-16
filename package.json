@@ -19,6 +19,7 @@
     "test": "react-scripts test",
     "eject": "react-scripts eject"
   },
+  "proxy": "https://support-fastmusik-marmolpen3.cloud.okteto.net/",
   "eslintConfig": {
     "extends": [
       "react-app",

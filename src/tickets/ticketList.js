@@ -1,27 +1,29 @@
+import { useEffect, useState } from "react";
 import Ticket from "./ticket";
+import TicketsApi from "./TicketsApi";
 
-
-const tickets = [
-    {
-        "id": 1,
-        "title": "Título del ticket",
-        "text": "Mensaje con la incidencia",
-        "priority": "low",
-    },
-    {
-        "id": 2,
-        "title": "Segundo título del ticket",
-        "text": "Segundo mensaje con la incidencia",
-        "priority": "medium",
-    }
-]
 
 const TicketList = () => {
+    const [tickets, setTickets] = useState([]);
+
+    useEffect(() => {
+        console.log('Me estoy ejecutando');
+       getAllTickets();
+    }, []);
+
+    const getAllTickets = async () => {
+        try {
+            const tickets = await TicketsApi.getAllTickets();
+            setTickets(tickets);
+        } catch (error) {
+            console.log('Could not contact with the server');
+        }
+    }
 
     return (
-        <div class="accordion" id="ticket-list">
+        <div className="accordion" id="ticket-list">
             {tickets.map(ticket => (
-                <Ticket key={ticket.id}
+                <Ticket key={ticket.priority}
                         ticket={ticket}/>
             ))}
         </div>
