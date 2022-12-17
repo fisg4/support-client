@@ -14,7 +14,7 @@ class TicketsApi {
 
         const response = await fetch(request);
 
-        if(!response.ok) {
+        if (!response.ok) {
             throw Error("Response not valid" + response.status);
         }
 

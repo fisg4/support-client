@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import Ticket from "./ticket";
+import TicketInfo from "./ticketInfo";
 import TicketsApi from "./TicketsApi";
 
 
@@ -8,7 +8,7 @@ const TicketList = () => {
 
     useEffect(() => {
         console.log('Me estoy ejecutando');
-       getAllTickets();
+        getAllTickets();
     }, []);
 
     const getAllTickets = async () => {
@@ -21,10 +21,10 @@ const TicketList = () => {
     }
 
     return (
-        <div className="accordion" id="ticket-list">
+        <div className="accordion my-3" id="ticket-list">
             {tickets.map(ticket => (
-                <Ticket key={ticket.priority}
-                        ticket={ticket}/>
+                <TicketInfo key={ticket.priority}
+                    ticket={ticket} />
             ))}
         </div>
     );

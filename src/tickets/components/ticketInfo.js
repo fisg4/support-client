@@ -1,6 +1,6 @@
 import React from 'react';
 
-const Ticket = ({ ticket }) => {
+const TicketInfo = ({ ticket }) => {
 
     return (
         <div className="accordion-item">
@@ -18,4 +18,4 @@ const Ticket = ({ ticket }) => {
     );
 }
 
-export default Ticket;
+export default TicketInfo;
