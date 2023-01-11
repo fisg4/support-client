@@ -22,6 +22,7 @@ const TicketList = () => {
 
     return (
         <div className="accordion my-3" id="ticket-list">
+            {tickets}
             {tickets.map(ticket => (
                 <TicketInfo key={ticket.priority}
                     ticket={ticket} />

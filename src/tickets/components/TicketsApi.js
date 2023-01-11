@@ -1,13 +1,11 @@
 class TicketsApi {
-    static API_BASE_URL = "/support/v1";
-
-    static requestHeaders = () => {
-        return {}
-    }
-
     static getAllTickets = async () => {
-        const headers = this.requestHeaders;
-        const request = new Request(TicketsApi.API_BASE_URL + "/tickets", {
+        const headers = {
+            "Content-Type": "application/json",
+            "Authorization": "Bearer " + ""
+        };
+        console.log(headers);
+        const request = new Request("/api/v1/tickets", {
             method: "GET",
             headers: headers,
         });
