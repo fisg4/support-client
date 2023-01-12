@@ -2,15 +2,15 @@
 {{/*
 Create chart name and version as used by the chart label.
 */}}
-{{- define "fastmusik-support.chart" -}}
+{{- define "fsupport-client.chart" -}}
 {{- printf "%s-%s" .Chart.Name .Chart.Version | replace "+" "_" | trunc 63 | trimSuffix "-" -}}
 {{- end -}}
 
 {{/*
 Common labels
 */}}
-{{- define "fastmusik-support.labels" -}}
-helm.sh/chart: {{ include "fastmusik-support.chart" . }}
+{{- define "support-client.labels" -}}
+helm.sh/chart: {{ include "support-client.chart" . }}
 app.kubernetes.io/managed-by: {{ .Release.Service }}
 app.kubernetes.io/instance: {{ .Release.Name }}
 {{- if .Chart.AppVersion }}

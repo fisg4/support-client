@@ -1,5 +1,5 @@
 tag: dev
 
-frontend:
+support-client:
   replicaCount: 1
-  image: okteto.dev/frontend
+  image: okteto.dev/support-client

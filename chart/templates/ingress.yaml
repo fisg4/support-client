@@ -1,9 +1,9 @@
 apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
-  name: fastmusik-support
+  name: support-client
   labels: 
-    {{- include "fastmusik-support.labels" . | nindent 4 }}
+    {{- include "support-client.labels" . | nindent 4 }}
   annotations:
     dev.okteto.com/generate-host: "true"
 spec:
@@ -14,7 +14,7 @@ spec:
             pathType: Prefix
             backend:
               service:
-                name: frontend
+                name: support-client
                 port:
                   number: 80
           - path: /api
