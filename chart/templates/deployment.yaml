@@ -1,26 +1,26 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: support-client
+  name: client
   labels:
-    {{- include "support-client.labels" . | nindent 4 }}
-    app.kubernetes.io/component: support-client
+    {{- include "client.labels" . | nindent 4 }}
+    app.kubernetes.io/component: client
 spec:
-  replicas: {{ .Values.support-client.replicaCount }}
+  replicas: {{ .Values.client.replicaCount }}
   selector:
     matchLabels:
-      app.kubernetes.io/name: support-client
+      app.kubernetes.io/name: client
       app.kubernetes.io/instance: {{ .Release.Name }}
   template:
     metadata:
       labels:
-        app.kubernetes.io/name: support-client
+        app.kubernetes.io/name: client
         app.kubernetes.io/instance: {{ .Release.Name }}
     spec:
       terminationGracePeriodSeconds: 0
       containers:
-        - name: support-client
-          image: {{ .Values.support-client.image }}:{{ .Values.tag }}
+        - name: client
+          image: {{ .Values.client.image }}:{{ .Values.tag }}
           ports:
             - name: http
               containerPort: 80

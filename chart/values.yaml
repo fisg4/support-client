@@ -1,5 +1,5 @@
 tag: dev
 
-support-client:
+client:
   replicaCount: 1
-  image: okteto.dev/support-client
+  image: okteto.dev/client
