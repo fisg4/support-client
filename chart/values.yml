@@ -1,0 +1,5 @@
+tag: dev
+
+frontend2:
+  replicaCount: 1
+  image: okteto.dev/frontend2
