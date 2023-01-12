@@ -1,34 +1,44 @@
 import { useEffect, useState } from "react";
 import TicketInfo from "./ticketInfo";
-import TicketsApi from "./TicketsApi";
-
 
 const TicketList = () => {
     const [tickets, setTickets] = useState([]);
 
     useEffect(() => {
-        console.log('Me estoy ejecutando');
+        async function getAllTickets() {
+            const request = new Request("/api/v1/tickets", {
+                method: "GET",
+                headers: {
+                    "Content-Type": "application/json",
+                    "Authorization": "Bearer " + "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYzYWVlNDQxMjA4N2NiYzg3MGNiNGRmYiIsInJvbGUiOiJhZG1pbiIsInBsYW4iOiJmcmVlIiwidXNlcm5hbWUiOiJlbGVuYTIiLCJlbWFpbCI6ImVsZW5hQGV4YW1wbGUuY29tIiwiaWF0IjoxNjcyNDA2MTM4fQ.ia1D_J-_dggngzozKmO1eAiKoU13_sfR1laLsMS9jXs"
+                },
+            });
+
+            const response = await fetch(request);
+
+            if (!response.ok) {
+                throw Error("Response not valid. " + response.status);
+            }
+
+            const tickets = await response.json();
+
+            setTickets(tickets);
+        }
+
         getAllTickets();
+
     }, []);
 
-    const getAllTickets = async () => {
-        try {
-            const tickets = await TicketsApi.getAllTickets();
-            setTickets(tickets);
-        } catch (error) {
-            console.log('Could not contact with the server');
-        }
-    }
 
-    return (
-        <div className="accordion my-3" id="ticket-list">
-            {tickets}
-            {tickets.map(ticket => (
-                <TicketInfo key={ticket.priority}
-                    ticket={ticket} />
-            ))}
-        </div>
-    );
+return (
+    <div className="row my-3" id="ticket-list">
+        {console.log(tickets)}
+        {tickets.map(ticket => (
+            <TicketInfo key={ticket._id}
+                ticket={ticket} />
+        ))}
+    </div>
+);
 }
 
 export default TicketList;

@@ -1,13 +1,17 @@
 import React from 'react'
-import TicketList from './components/ticketList';
+import { Link } from "react-router-dom";
 
 const Tickets = () => {
-    return (
-        <div className="container">
-            Hola
-            <TicketList />
+  return (
+    <div className="container">
+      <h2>Welcome to FastMusik support center</h2>
+      <Link to={`/support/tickets`}>
+        <div className="btn border-purple text-purple bg-blue btn-lg">
+          Tickets
         </div>
-    );
+      </Link>
+    </div>
+  );
 }
 
 export default Tickets;
