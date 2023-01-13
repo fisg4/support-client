@@ -1,7 +1,7 @@
 import React from 'react'
 import { Link } from "react-router-dom";
 
-const Tickets = () => {
+const Support = () => {
   return (
     <div className="container">
       <h2>Welcome to FastMusik support center</h2>
@@ -14,4 +14,4 @@ const Tickets = () => {
   );
 }
 
-export default Tickets;
+export default Support;
