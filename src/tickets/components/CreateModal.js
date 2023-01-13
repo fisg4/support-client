@@ -1,9 +1,8 @@
-import { useSelector, useDispatch } from "react-redux";
-import { setTicketList } from "../slices/ticketSlice";
+import { useDispatch } from "react-redux";
+import { addTicket } from "../slices/ticketSlice";
 
 function CreateModal({endpoint}) {
     const dispatch = useDispatch();
-    const ticketListState = useSelector((state) => state.ticketList);
 
     async function createTicket(endpoint, data) {
         const request = new Request(`${endpoint}`, {
@@ -14,14 +13,14 @@ function CreateModal({endpoint}) {
             },
             body: JSON.stringify(data)
         });
-
         const response = await fetch(request);
 
         if (!response.ok) {
             throw Error("Response not valid. " + response.status);
         }
-
-        dispatch(setTicketList(ticketListState.add(data)));
+        const ticket = await response.json();
+        
+        dispatch(addTicket(ticket));
     }
 
     return (
@@ -59,7 +58,7 @@ function CreateModal({endpoint}) {
                                 {
                                     "authorId": "63acac9c2087cbc870cb4dc7",
                                     "title": document.getElementById("ticketTitle").value,
-                                    "title": document.getElementById("ticketText").value,
+                                    "text": document.getElementById("ticketText").value,
                                     "status": document.getElementById("prioritySelected").value,
                                 }
                             )}>

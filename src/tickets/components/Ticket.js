@@ -28,9 +28,9 @@ const Ticket = () => {
             }
 
             const ticket = await response.json();
-            setTicket(ticket.content);
-            dispatch(setTicketStatus(ticket.content.status));
-            dispatch(setTicketPriority(ticket.content.priority));
+            setTicket(ticket);
+            dispatch(setTicketStatus(ticket.status));
+            dispatch(setTicketPriority(ticket.priority));
         }
 
         getTicketById();
@@ -54,9 +54,9 @@ const Ticket = () => {
                                 <iframe
                                     src={`https://www.youtube.com/embed/${youtubeParser(ticket.text)}`}
                                     title="Song video"
-                                    frameborder="0"
+                                    frameBorder="0"
                                     allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-                                    allowfullscreen>
+                                    allowFullScreen>
                                 </iframe>
                             </div>)
                             : (<p className="card-text">{ticket.text}</p>)}
