@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import CreateModal from "./CreateModal";
 import TicketInfo from "./TicketInfo";
 
 const TicketList = () => {
@@ -31,6 +32,10 @@ const TicketList = () => {
 
     return (
         <div className="row my-3" id="ticket-list">
+            <div className="col-1 offset-11 mb-2 text-end">
+                <a className="darkBlueText" href="#create" data-bs-toggle="modal" data-bs-target="#createModal"><i className="bi bi-plus-circle h1"></i></a>
+            </div>
+            <CreateModal endpoint={`/api/v1/tickets`}/>
             {tickets.length === 0 ?
                 (<div>No hay tickets disponibles</div>) :
                 (tickets.map((ticket) => {

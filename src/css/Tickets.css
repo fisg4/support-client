@@ -4,3 +4,11 @@
     padding: 1.5em;
     margin-bottom: 1em;
 }
+
+.darkBlueText {
+    color: #5343f1;
+  }
+
+.darkBlueText:hover {
+color: #851ff8;
+}
