@@ -1,5 +1,5 @@
 import logo from '../images/fastMusik_logo.svg';
-import perfil from '../images/perfil.png';
+import perfil from '../images/user-icon.png';
 import { Link, Outlet } from 'react-router-dom';
 
 function Header() {
