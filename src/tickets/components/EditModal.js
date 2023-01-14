@@ -1,6 +1,6 @@
 import { useDispatch } from "react-redux";
-import { setTicketStatus, setTicketPriority } from "../slices/ticketSlice";
-import { setReportStatus } from "../slices/reportSlice";
+import { setTicketStatus, setTicketPriority, setValidationErrors } from "../slices/ticketSlice";
+import { setReportStatus, setReportValidationErrors } from "../slices/reportSlice";
 
 function EditModal({ endpoint }) {
     const dispatch = useDispatch();
@@ -19,11 +19,10 @@ function EditModal({ endpoint }) {
         const response = await fetch(request);
 
         if (!response.ok) {
+            ticket ? dispatch(setValidationErrors(true)) : dispatch(setReportValidationErrors(true));
             throw Error("Response not valid. " + response.status);
         }
 
-        console.log(ticket);
-        console.log(data.status)
         ticket ?
             dispatch(setTicketStatus(data.status)) && dispatch(setTicketPriority(data.priority)) :
             dispatch(setReportStatus(data.status));
@@ -63,7 +62,7 @@ function EditModal({ endpoint }) {
                                 </select>) : <></>}
                             <div className="text-end">
                                 {ticket ?
-                                    (<button type="submit"
+                                    (<button type="button"
                                         className="btn border-purple text-purple bg-blue mt-4"
                                         data-bs-dismiss="modal"
                                         onClick={() => editTicketOrReport(

@@ -4,6 +4,7 @@ const initialState = {
   ticketList: [],
   ticketStatus: "sent",
   ticketPriority: "low",
+  validationErrors: false
 };
 
 export const ticketSlice = createSlice({
@@ -22,9 +23,12 @@ export const ticketSlice = createSlice({
     setTicketPriority: (state, action) => {
       state.ticketPriority = action.payload;
     },
+    setValidationErrors: (state, action) => {
+      state.validationErrors = action.payload;
+    }
   },
 });
 
-export const { setTicketList, addTicket, setTicketStatus, setTicketPriority } = ticketSlice.actions;
+export const { setTicketList, addTicket, setTicketStatus, setTicketPriority, setValidationErrors } = ticketSlice.actions;
 
 export default ticketSlice.reducer;

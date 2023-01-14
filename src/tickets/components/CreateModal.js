@@ -1,9 +1,8 @@
 import { useDispatch } from "react-redux";
-import { addTicket } from "../slices/ticketSlice";
+import { addTicket, setValidationErrors } from "../slices/ticketSlice";
 
 function CreateModal({ endpoint }) {
     const dispatch = useDispatch();
-    var error = false;
 
     async function createTicket(endpoint, data) {
         const request = new Request(`${endpoint}`, {
@@ -17,12 +16,12 @@ function CreateModal({ endpoint }) {
         const response = await fetch(request);
 
         if (!response.ok) {
-            const res = await response.json();
-            error = res.message;
+            dispatch(setValidationErrors(true));
             throw Error("Response not valid. " + response.status);
         }
-        const ticket = await response.json();
-
+        const ticket = await response.json(); 
+               
+        dispatch(setValidationErrors(false));
         dispatch(addTicket(ticket.content));
     }
 
@@ -38,11 +37,11 @@ function CreateModal({ endpoint }) {
                         <form>
                             <div className="mb-3">
                                 <label htmlFor="ticketTitle" className="form-label">Title</label>
-                                <input type="text" className="form-control" id="ticketTitle" minLength={10} maxLength={100} required />
+                                <input type="text" className="form-control" id="ticketTitle" maxLength={100} required />
                             </div>
                             <div className="mb-3">
                                 <label htmlFor="ticketText" className="form-label">Text</label>
-                                <textarea type="text" className="form-control" id="ticketText" minLength={10} maxLength={255} required />
+                                <textarea type="text" className="form-control" id="ticketText" maxLength={255} required />
                             </div>
                             <select className="form-select mt-4" id="prioritySelected" required>
                                 <option value="low" defaultValue>LOW</option>
@@ -51,8 +50,9 @@ function CreateModal({ endpoint }) {
                             </select>
                             <div className="text-end">
                                 <button
-                                    type="submit"
+                                    type="button"
                                     className="btn border-purple text-purple bg-blue mt-4"
+                                    data-bs-dismiss="modal"
                                     onClick={() => createTicket(
                                         endpoint,
                                         {

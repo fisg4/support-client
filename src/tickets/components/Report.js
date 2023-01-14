@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 import DeleteBtn from "./DeleteBtn";
 import EditModal from "./EditModal";
 import { useSelector, useDispatch } from "react-redux";
-import { setReportStatus } from "../slices/reportSlice";
+import { setReportStatus, setReportValidationErrors } from "../slices/reportSlice";
 
 
 const Report = () => {
@@ -31,6 +31,7 @@ const Report = () => {
             const report = await response.json();
             setReport(report);
             dispatch(setReportStatus(report.status));
+            dispatch(setReportValidationErrors(false));
         }
 
         getReportById();
@@ -41,7 +42,7 @@ const Report = () => {
     return (
         <div className="row my-3" id="report-list">
             <div className="col-12">
-                <h2 className="text-center">Reports detail</h2>
+                <h2 className="text-center">Report details</h2>
             </div>
             <div className="col-12 mb-4 text-start">
                 <Link to={`/support/reports`}>
@@ -50,7 +51,17 @@ const Report = () => {
                     </div>
                 </Link>
             </div>
-
+            {reportState.reportValidationErrors ?
+                (<div className="row d-flew justify-content-center mb-3">
+                    <div className="toast align-items-center border-purple bg-blue show" role="alert" aria-live="assertive" aria-atomic="true">
+                        <div className="d-flex">
+                            <div className="toast-body">
+                                There are some problems with your request. Try again!
+                            </div>
+                            <button type="button" className="btn-close me-2 m-auto" data-bs-dismiss="toast" aria-label="Close"></button>
+                        </div>
+                    </div>
+                </div>) : (<></>)}
             <div className="col-12 col-md-8 offset-md-2">
                 <div className="card ticketCard">
                     <div className="card-body">
