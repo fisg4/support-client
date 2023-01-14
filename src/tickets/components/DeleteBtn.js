@@ -17,7 +17,8 @@ function DeleteBtn({ endpoint }) {
             throw Error("Response not valid. " + response.status);
         }
 
-        navigate("/support/tickets");
+        endpoint.includes("tickets") ? navigate("/support/tickets") : navigate("/support/reports");
+
     }
 
 

@@ -40,6 +40,9 @@ const Ticket = () => {
 
     return (
         <div className="row my-3" id="ticket-list">
+            <div className="col-12">
+                <h2 className="text-center">Tickets detail</h2>
+            </div>
             <div className="col-12 mb-4 text-start">
                 <Link to={`/support/tickets`}>
                     <div className="btn border-purple text-purple bg-blue">

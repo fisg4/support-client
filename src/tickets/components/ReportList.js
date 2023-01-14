@@ -1,5 +1,6 @@
 import { useEffect } from "react";
 import ReportInfo from "./ReportInfo";
+import { Link } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { setReportList } from "../slices/reportSlice";
 
@@ -8,7 +9,6 @@ const ReportList = () => {
     const reportState = useSelector((state) => state.report);
 
     useEffect(() => {
-        console.log("hola");
         async function getAllReports() {
             const request = new Request("/api/v1/reports", {
                 method: "GET",
@@ -36,7 +36,14 @@ const ReportList = () => {
     return (
         <div className="row my-3" id="report-list">
             <div className="col-12">
-                <h2 className="text-center mb-3">List of Reports</h2>
+                <h2 className="text-center">List of Reports</h2>
+            </div>
+            <div className="col-12 mb-4 text-start">
+                <Link to={`/support`}>
+                    <div className="btn border-purple text-purple bg-blue">
+                        <i className="bi bi-arrow-left"></i>
+                    </div>
+                </Link>
             </div>
             {reportState.reportList.length === 0 ?
                 (<div className="text-center">No reports available</div>) :
