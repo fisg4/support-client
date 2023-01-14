@@ -21,6 +21,12 @@
   color: #6a17c8!important;
 }
 
+.form-control:focus, select:focus, input:focus{
+  color: #081a7a !important;
+  border-color: #e1bee7b8 !important;
+  box-shadow: 0 0 0 0.25rem #9575cde8 !important;
+}
+
 .header-logo {
   width: 80%;
 }

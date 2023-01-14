@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 import DeleteBtn from "./DeleteBtn";
 import EditModal from "./EditModal";
 import { useSelector, useDispatch } from "react-redux";
-import { setTicketStatus, setTicketPriority } from "../slices/ticketSlice";
+import { setTicketStatus, setTicketPriority, setValidationErrors } from "../slices/ticketSlice";
 
 const Ticket = () => {
     const { ticketId } = useParams();
@@ -31,6 +31,7 @@ const Ticket = () => {
             setTicket(ticket);
             dispatch(setTicketStatus(ticket.status));
             dispatch(setTicketPriority(ticket.priority));
+            dispatch(setValidationErrors(false));
         }
 
         getTicketById();
@@ -50,6 +51,17 @@ const Ticket = () => {
                     </div>
                 </Link>
             </div>
+            {ticketState.validationErrors ?
+                <div className="row d-flew justify-content-center mb-3">
+                    <div id="validationEditError" className="toast align-items-center border-purple bg-blue show" role="alert" aria-live="assertive" aria-atomic="true">
+                        <div className="d-flex">
+                            <div className="toast-body">
+                                There are some problems with your request. Try again!
+                            </div>
+                            <button type="button" className="btn-close me-2 m-auto" data-bs-dismiss="toast" aria-label="Close"></button>
+                        </div>
+                    </div>
+                </div> : <></>}
 
             <div className="col-12 col-md-8 offset-md-2">
                 <div className="card ticketCard">

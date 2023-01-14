@@ -3,7 +3,7 @@ import CreateModal from "./CreateModal";
 import TicketInfo from "./TicketInfo";
 import { Link } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
-import { setTicketList } from "../slices/ticketSlice";
+import { setTicketList, setValidationErrors } from "../slices/ticketSlice";
 
 const TicketList = () => {
     const dispatch = useDispatch();
@@ -27,6 +27,7 @@ const TicketList = () => {
             const tickets = await response.json();
 
             dispatch(setTicketList(tickets));
+            dispatch(setValidationErrors(false));
         }
 
         getAllTickets();
@@ -46,10 +47,22 @@ const TicketList = () => {
                     </div>
                 </Link>
             </div>
+            {ticketState.validationErrors ? (
+                <div className="row d-flew justify-content-center mb-3">
+                    <div className="toast align-items-center border-purple bg-blue show" role="alert" aria-live="assertive" aria-atomic="true">
+                        <div className="d-flex">
+                            <div className="toast-body">
+                                There are some problems with your request. Try again!
+                            </div>
+                            <button type="button" className="btn-close me-2 m-auto" data-bs-dismiss="toast" aria-label="Close"></button>
+                        </div>
+                    </div>
+                </div>)
+                : <></>}
             <div className="col-6 mb-3 text-end">
                 <a className="darkBlueText" href="#create" data-bs-toggle="modal" data-bs-target="#createModal"><i className="bi bi-plus-circle h1"></i></a>
             </div>
-            <CreateModal endpoint={`/api/v1/tickets`}/>
+            <CreateModal endpoint={`/api/v1/tickets`} />
             {ticketState.ticketList.length === 0 ?
                 (<div className="text-center">No tickets available, would you like to add any?</div>) :
                 (ticketState.ticketList.map((ticket) => {

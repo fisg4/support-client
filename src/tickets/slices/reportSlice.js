@@ -3,6 +3,7 @@ import { createSlice } from "@reduxjs/toolkit";
 const initialState = {
   reportList: [],
   reportStatus: "sent",
+  reportValidationErrors: false,
 };
 
 export const reportSlice = createSlice({
@@ -15,9 +16,12 @@ export const reportSlice = createSlice({
     setReportStatus: (state, action) => {
       state.reportStatus = action.payload;
     },
+    setReportValidationErrors: (state, action) => {
+      state.reportValidationErrors = action.payload;
+    },
   },
 });
 
-export const { setReportList, setReportStatus } = reportSlice.actions;
+export const { setReportList, setReportStatus, setReportValidationErrors } = reportSlice.actions;
 
 export default reportSlice.reducer;
