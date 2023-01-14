@@ -1,14 +1,14 @@
-.ticketCard {
-    border: 1px solid #851ff8;
-    border-radius: 5px;
-    padding: 1.5em;
-    margin-bottom: 1em;
+.supportCard {
+  border: 1px solid #851ff8 !important;
+  border-radius: 5px !important;
+  padding: 1.5em !important;
+  margin-bottom: 1em !important;
 }
 
 .darkBlueText {
-    color: #5343f1;
-  }
+  color: #5343f1;
+}
 
 .darkBlueText:hover {
-color: #851ff8;
+  color: #851ff8;
 }

@@ -3,6 +3,7 @@ import './css/Tickets.css';
 import Support from "./tickets/Support";
 import TicketList from "./tickets/components/TicketList";
 import Ticket from "./tickets/components/Ticket";
+import ReportList from "./tickets/components/ReportList";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Footer from './common/footer';
 import Header from './common/header';
@@ -21,6 +22,7 @@ const App = () => {
             <Route path="/support" element={<Support />} />
             <Route path="/support/tickets" element={<TicketList />} />
             <Route path="/support/tickets/:ticketId" element={<Ticket />} />
+            <Route path="/support/reports" element={<ReportList />} />
             <Route path="*" element={<ErrorPage />} />
           </Routes>
         </main>

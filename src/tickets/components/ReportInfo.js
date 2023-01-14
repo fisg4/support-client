@@ -1,17 +1,16 @@
 import React from 'react';
 import { Link } from "react-router-dom";
 
-const TicketInfo = ({ ticket }) => {
+const ReportInfo = ({ report }) => {
 
     return (
         <div className="col-12 col-md-4">
             <div className="card supportCard">
                 <div className="card-body">
-                    <h5 className="card-title">{ticket.title}</h5>
-                    <p className="card-text">{ticket.priority}</p>
-                    <p className="card-text">{ticket.createDate.split('T')[0]}</p>
+                    <h5 className="card-title">{report.title}</h5>
+                    <p className="card-text">{report.createDate.split('T')[0]}</p>
                     <div className="pt-3 text-center">
-                        <Link to={`/support/tickets/${ticket._id}`}>
+                        <Link to={`/support/reports/${report._id}`}>
                             <div className="btn border-purple text-purple bg-blue btn-lg">
                                 Manage
                             </div>
@@ -23,4 +22,4 @@ const TicketInfo = ({ ticket }) => {
     );
 }
 
-export default TicketInfo;
+export default ReportInfo;

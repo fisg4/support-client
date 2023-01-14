@@ -1,7 +1,7 @@
 import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
-  ticketList: new Array(),
+  ticketList: [],
   ticketStatus: "sent",
   radio: "rejected",
   ticketPriority: "low",
