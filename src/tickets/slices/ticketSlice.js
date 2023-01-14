@@ -3,9 +3,7 @@ import { createSlice } from "@reduxjs/toolkit";
 const initialState = {
   ticketList: [],
   ticketStatus: "sent",
-  radio: "rejected",
   ticketPriority: "low",
-  select: "low",
 };
 
 export const ticketSlice = createSlice({
@@ -21,18 +19,12 @@ export const ticketSlice = createSlice({
     setTicketStatus: (state, action) => {
       state.ticketStatus = action.payload;
     },
-    setRadio: (state, action) => {
-      state.radio = action.payload;
-    },
     setTicketPriority: (state, action) => {
       state.ticketPriority = action.payload;
-    },
-    setSelect: (state, action) => {
-      state.select = action.payload;
     },
   },
 });
 
-export const { setTicketList, addTicket, setTicketStatus, setRadio, setTicketPriority, setSelect } = ticketSlice.actions;
+export const { setTicketList, addTicket, setTicketStatus, setTicketPriority } = ticketSlice.actions;
 
 export default ticketSlice.reducer;

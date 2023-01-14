@@ -1,6 +1,7 @@
 import { useEffect } from "react";
 import CreateModal from "./CreateModal";
 import TicketInfo from "./TicketInfo";
+import { Link } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { setTicketList } from "../slices/ticketSlice";
 
@@ -36,9 +37,16 @@ const TicketList = () => {
     return (
         <div className="row my-3" id="ticket-list">
             <div className="col-12">
-                <h2 className="text-center">List of Lickets</h2>
+                <h2 className="text-center">List of Tickets</h2>
             </div>
-            <div className="col-12 mb-3 text-end">
+            <div className="col-6 mb-4 text-start">
+                <Link to={`/support`}>
+                    <div className="btn border-purple text-purple bg-blue">
+                        <i className="bi bi-arrow-left"></i>
+                    </div>
+                </Link>
+            </div>
+            <div className="col-6 mb-3 text-end">
                 <a className="darkBlueText" href="#create" data-bs-toggle="modal" data-bs-target="#createModal"><i className="bi bi-plus-circle h1"></i></a>
             </div>
             <CreateModal endpoint={`/api/v1/tickets`}/>
