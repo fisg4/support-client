@@ -40,12 +40,15 @@ const Ticket = () => {
 
     return (
         <div className="row my-3" id="ticket-list">
-            <Link to={`/support/tickets`}>
-                <div className="btn border-purple text-purple bg-blue btn-lg">
-                    Back
-                </div>
-            </Link>
-            <div className="col-12 col-md-8 offset-2">
+            <div className="col-12 mb-4 text-start">
+                <Link to={`/support/tickets`}>
+                    <div className="btn border-purple text-purple bg-blue">
+                        <i className="bi bi-arrow-left"></i>
+                    </div>
+                </Link>
+            </div>
+
+            <div className="col-12 col-md-8 offset-md-2">
                 <div className="card ticketCard">
                     <div className="card-body">
                         <h5 className="card-title">{ticket.title}</h5>
@@ -64,14 +67,16 @@ const Ticket = () => {
                         <p className="card-text">{ticketState.ticketPriority}</p>
                         <p className="card-text">{ticket.createDate?.split('T')[0]}</p>
                         <div className="pt-3 text-center">
-                            {ticketState.ticketStatus === "validated" || ticketState.ticketStatus === "rejected" ?
-                                (<></>) :
-                                (<div className="btn border-purple text-purple bg-blue btn-lg" data-bs-toggle="modal" data-bs-target="#updateModal">
-                                    Edit
-                                </div>)
-                            }
-                            <EditModal endpoint={`/api/v1/tickets/${ticket._id}`} />
-                            <DeleteBtn endpoint={`/api/v1/tickets/${ticket._id}`} />
+                            <div className="d-grid gap-2 d-md-flex justify-content-center">
+                                {ticketState.ticketStatus === "validated" || ticketState.ticketStatus === "rejected" ?
+                                    (<></>) :
+                                    (<div className="btn border-purple text-purple bg-blue btn-lg" data-bs-toggle="modal" data-bs-target="#updateModal">
+                                        Edit
+                                    </div>)
+                                }
+                                <EditModal endpoint={`/api/v1/tickets/${ticket._id}`} />
+                                <DeleteBtn endpoint={`/api/v1/tickets/${ticket._id}`} />
+                            </div>
                         </div>
                     </div>
                 </div>

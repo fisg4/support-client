@@ -4,12 +4,26 @@ import { Link } from "react-router-dom";
 const Support = () => {
   return (
     <div className="container">
-      <h2>Welcome to FastMusik support center</h2>
-      <Link to={`/support/tickets`}>
-        <div className="btn border-purple text-purple bg-blue btn-lg">
-          Tickets
+      <div className="row my-3">
+        <div className="col-12 text-center">
+          <h2>Welcome to FastMusik support center</h2>
+          <p>FastMusik's support center allows you to view and create new tickets and reports. Please contact us whenever you have a problem.</p>
         </div>
-      </Link>
+        <div className="row my-3">
+          <div className="d-grid gap-2 d-md-flex justify-content-center">
+            <Link to={`/support/tickets`}>
+              <div className="btn border-purple text-purple bg-blue btn-lg">
+                Tickets
+              </div>
+            </Link>
+            <Link to={`/support/reports`}>
+              <div className="btn border-purple text-purple bg-blue btn-lg">
+                Reports
+              </div>
+            </Link>
+          </div>
+        </div>
+      </div>
     </div>
   );
 }
