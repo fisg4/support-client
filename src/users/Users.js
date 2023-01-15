@@ -122,7 +122,7 @@ export default function Users(props) {
     <div>
       {isLoggedIn ? (
         <>
-        <div class="text-center mb-3">
+        <div className="text-center mb-3">
           <h1>Login successful</h1>
           <Link to={`/support`}>
             <div className="btn border-purple text-purple bg-blue btn-lg">
@@ -130,22 +130,22 @@ export default function Users(props) {
             </div>
           </Link>
         </div>
-        <div class="text-center">
+        <div className="text-center">
           <Card className="mx-auto" style={{ width: '20rem' }}>
             <CardBody>
               <CardTitle>Usuario: {user.username}</CardTitle>
               <CardSubtitle>Email: {user.email}</CardSubtitle>
             </CardBody>
           </Card>
-          <div class="mt-2">
+          <div className="mt-2">
             <Button onClick={handleSignOff}>Sign off</Button>
           </div>
           {showUpdateForm ? (
-            <div class="mt-2">
+            <div className="mt-2">
               <Card className='d-flex justify-content-center w-50 mx-auto'>
                 <CardBody>
                   <CardTitle className='display-4 text-center'>Edit your info</CardTitle>
-        {errorMessage && <p class='text-center text-danger'>{errorMessage}</p>}
+        {errorMessage && <p className='text-center text-danger'>{errorMessage}</p>}
         <Form onSubmit={handleUpdate}>
           <FormGroup>
             <Label for="email">Email</Label>
@@ -214,7 +214,7 @@ export default function Users(props) {
                 <Input type="password" name="password" placeholder="Password" />
               </FormGroup>
               <Button className="text-center" type="submit">Log in</Button>
-              {errorMessage && <div class="text-center mt-3 text-danger">{errorMessage}</div>}
+              {errorMessage && <div className="text-center mt-3 text-danger">{errorMessage}</div>}
             </Form>
           </CardBody>
         </Card>
