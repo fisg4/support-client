@@ -14,6 +14,11 @@ const Report = () => {
     const dispatch = useDispatch();
     const reportState = useSelector((state) => state.report);
     const token = localStorage.getItem('token');
+    let role = null;
+
+    if (token) {
+        role = JSON.parse(localStorage.getItem('user')).role;
+    }
 
     useEffect(() => {
         async function getReportById() {
@@ -47,7 +52,7 @@ const Report = () => {
     return (
         <Fragment>
             {!token ?
-                <RequireLogin message={"You can not manage your tickets if you are not logged in the system."} /> :
+                <RequireLogin message={"You can not manage your reports if you are not logged in the system."} /> :
                 <div className="row my-3" id="report-list">
                     <div className="col-12">
                         <h2 className="text-center">Report details</h2>
@@ -79,14 +84,14 @@ const Report = () => {
                                 <p className="card-text">{report.createDate?.split('T')[0]}</p>
                                 <div className="pt-3 text-center">
                                     <div className="d-grid gap-2 d-md-flex justify-content-center">
-                                        {reportState.reportStatus === "validated" || reportState.reportStatus === "rejected" ?
+                                        {reportState.reportStatus === "validated" || reportState.reportStatus === "rejected" || role === "user" ?
                                             (<></>) :
                                             (<div className="btn border-purple text-purple bg-blue btn-lg" data-bs-toggle="modal" data-bs-target="#updateModal">
                                                 Edit
                                             </div>)
                                         }
                                         <EditModal endpoint={`/api/v1/reports/${report._id}`} />
-                                        <DeleteBtn endpoint={`/api/v1/reports/${report._id}`} />
+                                        {role === "admin" && <DeleteBtn endpoint={`/api/v1/reports/${report._id}`} />}
                                     </div>
                                 </div>
                             </div>

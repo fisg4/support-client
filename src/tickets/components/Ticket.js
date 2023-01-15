@@ -13,6 +13,11 @@ const Ticket = () => {
     const dispatch = useDispatch();
     const ticketState = useSelector((state) => state.ticket);
     const token = localStorage.getItem('token');
+    let role = null;
+
+    if (token) {
+        role = JSON.parse(localStorage.getItem('user')).role;
+    }
 
     useEffect(() => {
         async function getTicketById() {
@@ -89,14 +94,14 @@ const Ticket = () => {
                                 <p className="card-text">{ticket.createDate?.split('T')[0]}</p>
                                 <div className="pt-3 text-center">
                                     <div className="d-grid gap-2 d-md-flex justify-content-center">
-                                        {ticketState.ticketStatus === "validated" || ticketState.ticketStatus === "rejected" ?
+                                        {ticketState.ticketStatus === "validated" || ticketState.ticketStatus === "rejected" || role === "user" ?
                                             (<></>) :
                                             (<div className="btn border-purple text-purple bg-blue btn-lg" data-bs-toggle="modal" data-bs-target="#updateModal">
                                                 Edit
                                             </div>)
                                         }
                                         <EditModal endpoint={`/api/v1/tickets/${ticket._id}`} />
-                                        <DeleteBtn endpoint={`/api/v1/tickets/${ticket._id}`} />
+                                        {role === "admin" && <DeleteBtn endpoint={`/api/v1/tickets/${ticket._id}`} />}
                                     </div>
                                 </div>
                             </div>
