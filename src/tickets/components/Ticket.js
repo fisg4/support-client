@@ -4,20 +4,18 @@ import DeleteBtn from "./DeleteBtn";
 import EditModal from "./EditModal";
 import { useSelector, useDispatch } from "react-redux";
 import { setTicketStatus, setTicketPriority, setValidationErrors } from "../slices/ticketSlice";
-import { useNavigate } from "react-router-dom";
 
 const Ticket = () => {
     const { ticketId } = useParams();
     const [ticket, setTicket] = useState([]);
     const [song, setSong] = useState([]);
+    const [existSong, setExistSong] = useState(false);
     const dispatch = useDispatch();
     const ticketState = useSelector((state) => state.ticket);
-    const [existSong, setExistSong] = useState(false);
-    const navigate = useNavigate();
 
     useEffect(() => {
-        async function fetchSong(id) {
-            const request = new Request("/api/v1/songs/" + id, {
+        async function fetchSong(songId) {
+            const request = new Request("/api/v1/songs/" + songId, {
                 method: "GET",
                 headers: {},
             });
@@ -67,7 +65,7 @@ const Ticket = () => {
                     <div id="validationEditError" className="toast align-items-center border-purple bg-blue show" role="alert" aria-live="assertive" aria-atomic="true">
                         <div className="d-flex">
                             <div className="toast-body">
-                                There are some problems with your request. Try again!
+                                There are some problems with your request. Try again later!
                             </div>
                             <button type="button" className="btn-close me-2 m-auto" data-bs-dismiss="toast" aria-label="Close"></button>
                         </div>
@@ -77,8 +75,8 @@ const Ticket = () => {
                 <div className="card text-center ticketDetails">
                     <div className={ticketState.ticketPriority === "low" ? "rounded-top hGreen"
                         : ticketState.ticketPriority === "medium" ? "rounded-top hYellow" : "rounded-top hRed"}>
-                        <div className="card-header">
-                            {ticketState.ticketPriority?.toUpperCase()} PRIORITY
+                        <div className="card-header bg-transparent">
+                            <h5 className="card-title my-2">{ticketState.ticketPriority?.toUpperCase()} PRIORITY</h5>
                         </div>
                     </div>
                     <div className={ticketState.ticketPriority === "low" ? "bgGreen"
@@ -109,10 +107,10 @@ const Ticket = () => {
                     </div>
                     <div className={ticketState.ticketPriority === "low" ? "rounded-bottom bgGreen"
                         : ticketState.ticketPriority === "medium" ? "rounded-bottom bgYellow" : "rounded-bottom bgRed"}>
-                        <div className="card-footer text-muted">
+                        <div className="card-footer text-muted bg-transparent">
                             {ticketState.ticketStatus === "sent" ?
-                                <p className="card-text">This ticket was {ticketState.ticketStatus} on {ticket.createDate?.split('T')[0]}</p>
-                                : <p className="card-text">This ticket was {ticketState.ticketStatus} on {ticket.updateDate?.split('T')[0]}</p>}
+                                <p className="card-text">This ticket has been {ticketState.ticketStatus} on {ticket.createDate?.split('T')[0]}</p>
+                                : <p className="card-text">This ticket has been {ticketState.ticketStatus}</p>}
                             <div className="pt-2 text-center">
                                 <div className="d-grid gap-2 d-md-flex justify-content-center">
                                     <div className="col-12 ps-0">
