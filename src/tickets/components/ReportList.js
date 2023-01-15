@@ -11,7 +11,44 @@ const ReportList = () => {
     const token = localStorage.getItem('token');
 
     useEffect(() => {
-        console.log(token);
+        async function getAllReports() {
+            const request = new Request("/api/v1/reports", {
+                method: "GET",
+                headers: {
+                    "Authorization": `Bearer ${token}`
+                },
+            });
+
+            const response = await fetch(request);
+
+            if (!response.ok) {
+                throw Error("Response not valid. " + response.status);
+            }
+
+            const reports = await response.json();
+
+            dispatch(setReportList(reports));
+        }
+
+        async function getReportsFromUser(id) {
+            const request = new Request(`/api/v1/reports/user/${id}`, {
+                method: "GET",
+                headers: {
+                    "Authorization": `Bearer ${token}`
+                },
+            });
+
+            const response = await fetch(request);
+
+            if (!response.ok) {
+                throw Error("Response not valid. " + response.status);
+            }
+
+            const reports = await response.json();
+
+            dispatch(setReportList(reports));
+        }
+
         if (token) {
             const role = JSON.parse(localStorage.getItem('user')).role;
 
@@ -23,45 +60,7 @@ const ReportList = () => {
             }
         }
 
-    }, [dispatch]);
-
-    async function getAllReports() {
-        const request = new Request("/api/v1/reports", {
-            method: "GET",
-            headers: {
-                "Authorization": `Bearer ${token}`
-            },
-        });
-
-        const response = await fetch(request);
-
-        if (!response.ok) {
-            throw Error("Response not valid. " + response.status);
-        }
-
-        const reports = await response.json();
-
-        dispatch(setReportList(reports));
-    }
-
-    async function getReportsFromUser(id) {
-        const request = new Request(`/api/v1/reports/user/${id}`, {
-            method: "GET",
-            headers: {
-                "Authorization": `Bearer ${token}`
-            },
-        });
-
-        const response = await fetch(request);
-
-        if (!response.ok) {
-            throw Error("Response not valid. " + response.status);
-        }
-
-        const reports = await response.json();
-
-        dispatch(setReportList(reports));
-    }
+    }, [dispatch, token]);
 
     return (
         <Fragment>

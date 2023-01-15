@@ -10,59 +10,60 @@ const TicketList = () => {
     const dispatch = useDispatch();
     const ticketState = useSelector((state) => state.ticket);
     const token = localStorage.getItem('token');
+    let role = null;
+
+    if (token) {
+        role = JSON.parse(localStorage.getItem('user')).role;
+    }
 
     useEffect(() => {
-        if (token) {
-            const role = JSON.parse(localStorage.getItem('user')).role;
+        async function getAllTickets() {
+            const request = new Request("/api/v1/tickets", {
+                method: "GET",
+                headers: {
+                    "Authorization": `Bearer ${token}`
+                },
+            });
 
-            if (role === "admin") {
-                getAllTickets();
-            } else if (role === "user") {
-                const userId = JSON.parse(localStorage.getItem('user')).id;
-                getTicketsFromUser(userId);
+            const response = await fetch(request);
+
+            if (!response.ok) {
+                throw Error("Response not valid. " + response.status);
             }
+
+            const tickets = await response.json();
+
+            dispatch(setTicketList(tickets));
+            dispatch(setValidationErrors(false));
+        }
+
+        async function getTicketsFromUser(id) {
+            const request = new Request(`/api/v1/tickets/user/${id}`, {
+                method: "GET",
+                headers: {
+                    "Authorization": `Bearer ${token}`
+                },
+            });
+
+            const response = await fetch(request);
+
+            if (!response.ok) {
+                throw Error("Response not valid. " + response.status);
+            }
+
+            const tickets = await response.json();
+
+            dispatch(setTicketList(tickets));
+            dispatch(setValidationErrors(false));
+        }
+
+        if (role === "admin") {
+            getAllTickets();
+        } else if (role === "user") {
+            const userId = JSON.parse(localStorage.getItem('user')).id;
+            getTicketsFromUser(userId);
         }
     }, []);
-
-    async function getAllTickets() {
-        const request = new Request("/api/v1/tickets", {
-            method: "GET",
-            headers: {
-                "Authorization": `Bearer ${token}`
-            },
-        });
-
-        const response = await fetch(request);
-
-        if (!response.ok) {
-            throw Error("Response not valid. " + response.status);
-        }
-
-        const tickets = await response.json();
-
-        dispatch(setTicketList(tickets));
-        dispatch(setValidationErrors(false));
-    }
-
-    async function getTicketsFromUser(id) {
-        const request = new Request(`/api/v1/tickets/user/${id}`, {
-            method: "GET",
-            headers: {
-                "Authorization": `Bearer ${token}`
-            },
-        });
-
-        const response = await fetch(request);
-
-        if (!response.ok) {
-            throw Error("Response not valid. " + response.status);
-        }
-
-        const tickets = await response.json();
-
-        dispatch(setTicketList(tickets));
-        dispatch(setValidationErrors(false));
-    }
 
     return (
         <Fragment>
@@ -92,7 +93,7 @@ const TicketList = () => {
                         </div>)
                         : <></>}
                     <div className="col-6 mb-3 text-end">
-                        <a className="darkBlueText" href="#create" data-bs-toggle="modal" data-bs-target="#createModal"><i className="bi bi-plus-circle h1"></i></a>
+                    {role === "user" && <a className="darkBlueText" href="#create" data-bs-toggle="modal" data-bs-target="#createModal"><i className="bi bi-plus-circle h1"></i></a>}
                     </div>
                     <CreateModal endpoint={`/api/v1/tickets`} />
                     {ticketState.ticketList.length === 0 ?
