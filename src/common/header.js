@@ -2,12 +2,14 @@ import logo from '../images/fastMusik_logo.svg';
 import perfil from '../images/user-icon.png';
 import { Link, Outlet } from 'react-router-dom';
 import { useNavigate } from "react-router-dom";
+import TokenListener from './components/TokenListener';
 
 function Header() {
   const navigate = useNavigate();
 
   return (
     <>
+    <TokenListener />
       <header className="container">
         <div className="row mt-3">
         <div className="col-2 text-center mt-sm-1">
