@@ -24,6 +24,8 @@ function EditModal({ endpoint }) {
             throw Error("Response not valid. " + response.status);
         }
 
+        ticket ? dispatch(setValidationErrors(false)) : dispatch(setReportValidationErrors(false));
+
         ticket ?
             dispatch(setTicketStatus(data.status)) && dispatch(setTicketPriority(data.priority)) :
             dispatch(setReportStatus(data.status));
