@@ -52,7 +52,6 @@ const Ticket = () => {
             setTicket(ticket);
             dispatch(setTicketStatus(ticket.status));
             dispatch(setTicketPriority(ticket.priority));
-            dispatch(setValidationErrors(false));
 
             ticket?.songId && await fetchSong(ticket.songId);
         }
@@ -62,6 +61,9 @@ const Ticket = () => {
 
     }, [ticketId, dispatch]);
 
+    function onAlertClose() {
+        dispatch(setValidationErrors(false));
+    }
 
     return (
         <Fragment>
@@ -78,7 +80,7 @@ const Ticket = () => {
                                     <div className="toast-body">
                                         There are some problems with your request. Try again later!
                                     </div>
-                                    <button type="button" className="btn-close me-2 m-auto" data-bs-dismiss="toast" aria-label="Close"></button>
+                                    <button type="button" className="btn-close me-2 m-auto" data-bs-dismiss="toast" aria-label="Close" onClick={ onAlertClose }></button>
                                 </div>
                             </div>
                         </div> : <></>}

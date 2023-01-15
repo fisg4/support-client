@@ -54,8 +54,6 @@ const Report = () => {
             const report = await response.json();
             setReport(report);
             dispatch(setReportStatus(report.status));
-            dispatch(setReportValidationErrors(false));
-
             report?.messageId && fetchMessage(report.messageId);
         }
 
@@ -66,6 +64,9 @@ const Report = () => {
 
     }, [reportId, dispatch]);
 
+    function onAlertClose() {
+        dispatch(setReportValidationErrors(false));
+    }
 
     return (
         <Fragment>
@@ -83,7 +84,7 @@ const Report = () => {
                                         There are some problems with your request. Try again later!
 
                                     </div>
-                                    <button type="button" className="btn-close me-2 m-auto" data-bs-dismiss="toast" aria-label="Close"></button>
+                                    <button type="button" className="btn-close me-2 m-auto" data-bs-dismiss="toast" aria-label="Close" onClick={onAlertClose}></button>
                                 </div>
                             </div>
                         </div>) : (<></>)}
@@ -108,7 +109,7 @@ const Report = () => {
                                 <div className="text-center">
                                     <div className="d-grid gap-2 d-md-flex justify-content-center">
                                         <div className="col-12 ps-0">
-                                            {reportState.reportStatus === "validated" || reportState.reportStatus === "rejected" || role === "user" ?
+                                            {reportState.reportStatus === "approved" || reportState.reportStatus === "rejected" || role === "user" ?
                                                 (<></>) :
                                                 (<a href="#edit" className="darkBlueText me-4" data-bs-toggle="modal" data-bs-target="#updateModal">
                                                     <i className="bi bi-pencil-square"></i>
