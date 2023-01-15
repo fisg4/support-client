@@ -2,13 +2,14 @@ import { useNavigate } from "react-router-dom";
 
 function DeleteBtn({ endpoint }) {
     const navigate = useNavigate();
+    const token = localStorage.getItem('token');
     const ticket = endpoint.includes("tickets") ? "ticket" : "report";
 
     async function deleteTicketOrReport(endpoint) {
         const request = new Request(`${endpoint}`, {
             method: "DELETE",
             headers: {
-                "Authorization": "Bearer " + "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYzYWVlNDQxMjA4N2NiYzg3MGNiNGRmYiIsInJvbGUiOiJhZG1pbiIsInBsYW4iOiJmcmVlIiwidXNlcm5hbWUiOiJlbGVuYTIiLCJlbWFpbCI6ImVsZW5hQGV4YW1wbGUuY29tIiwiaWF0IjoxNjcyNDA2MTM4fQ.ia1D_J-_dggngzozKmO1eAiKoU13_sfR1laLsMS9jXs"
+                "Authorization": `Bearer ${token}`
             },
         });
 

@@ -3,15 +3,16 @@ import { addTicket, setValidationErrors } from "../slices/ticketSlice";
 
 function CreateModal({ }) {
     const dispatch = useDispatch();
+    const token = localStorage.getItem('token');
 
     async function createTicket(data) {
         const request = new Request("/api/v1/tickets/", {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
-                "Authorization": "Bearer " + "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYzYWNhYzljMjA4N2NiYzg3MGNiNGRjNyIsInJvbGUiOiJ1c2VyIiwicGxhbiI6ImZyZWUiLCJ1c2VybmFtZSI6ImVsZW5hIiwiZW1haWwiOiJ1c2VyQGV4YW1wbGUuY29tIiwiaWF0IjoxNjcyNDA0OTA5fQ.LBgT58_oXqb86yc9Oyc20nFGb_GuDRcmgK8hABvcyFQ"
+                "Authorization": `Bearer ${token}`
             },
-            body: JSON.stringify(data)
+            body: JSON.stringify({authorId: JSON.parse(localStorage.getItem('user')).id, ...data})
         });
         const response = await fetch(request);
 
@@ -55,7 +56,6 @@ function CreateModal({ }) {
                                     data-bs-dismiss="modal"
                                     onClick={() => createTicket(
                                         {
-                                            "authorId": "63acac9c2087cbc870cb4dc7",
                                             "title": document.getElementById("ticketTitle").value,
                                             "text": document.getElementById("ticketText").value,
                                             "priority": document.getElementById("prioritySelected").value,

@@ -5,13 +5,14 @@ import { setReportStatus, setReportValidationErrors } from "../slices/reportSlic
 function EditModal({ endpoint }) {
     const dispatch = useDispatch();
     const ticket = endpoint.includes("tickets") ? true : false;
+    const token = localStorage.getItem('token');
 
     async function editTicketOrReport(endpoint, data) {
         const request = new Request(`${endpoint}`, {
             method: "PATCH",
             headers: {
                 "Content-Type": "application/json",
-                "Authorization": "Bearer " + "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYzYWVlNDQxMjA4N2NiYzg3MGNiNGRmYiIsInJvbGUiOiJhZG1pbiIsInBsYW4iOiJmcmVlIiwidXNlcm5hbWUiOiJlbGVuYTIiLCJlbWFpbCI6ImVsZW5hQGV4YW1wbGUuY29tIiwiaWF0IjoxNjcyNDA2MTM4fQ.ia1D_J-_dggngzozKmO1eAiKoU13_sfR1laLsMS9jXs"
+                "Authorization": `Bearer ${token}`
             },
             body: JSON.stringify(data)
         });
@@ -68,7 +69,7 @@ function EditModal({ endpoint }) {
                                         onClick={() => editTicketOrReport(
                                             endpoint,
                                             {
-                                                "reviewerId": "63aee4412087cbc870cb4dfb",
+                                                "reviewerId": JSON.parse(localStorage.getItem('user')).id,
                                                 "status": document.getElementById("validatedRadio").checked ? "validated" : "rejected",
                                                 "priority": document.getElementById("prioritySelected").value
                                             })}>
@@ -80,7 +81,7 @@ function EditModal({ endpoint }) {
                                         onClick={() => editTicketOrReport(
                                             endpoint,
                                             {
-                                                "reviewerId": "63aee4412087cbc870cb4dfb",
+                                                "reviewerId": JSON.parse(localStorage.getItem('user')).id,
                                                 "status": document.getElementById("validatedRadio").checked ? "approved" : "rejected",
                                             })}>
                                         Confirm

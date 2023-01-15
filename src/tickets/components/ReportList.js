@@ -1,19 +1,21 @@
-import { useEffect } from "react";
+import { Fragment, useEffect } from "react";
 import ReportInfo from "./ReportInfo";
 import { Link } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { setReportList } from "../slices/reportSlice";
+import RequireLogin from "../../common/requireLogin";
 
 const ReportList = () => {
     const dispatch = useDispatch();
     const reportState = useSelector((state) => state.report);
+    const token = localStorage.getItem('token');
 
     useEffect(() => {
         async function getAllReports() {
             const request = new Request("/api/v1/reports", {
                 method: "GET",
                 headers: {
-                    "Authorization": "Bearer " + "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYzYWVlNDQxMjA4N2NiYzg3MGNiNGRmYiIsInJvbGUiOiJhZG1pbiIsInBsYW4iOiJmcmVlIiwidXNlcm5hbWUiOiJlbGVuYTIiLCJlbWFpbCI6ImVsZW5hQGV4YW1wbGUuY29tIiwiaWF0IjoxNjcyNDA2MTM4fQ.ia1D_J-_dggngzozKmO1eAiKoU13_sfR1laLsMS9jXs"
+                    "Authorization": `Bearer ${token}`
                 },
             });
 
@@ -28,25 +30,57 @@ const ReportList = () => {
             dispatch(setReportList(reports));
         }
 
-        getAllReports();
+        async function getReportsFromUser(id) {
+            const request = new Request(`/api/v1/reports/user/${id}`, {
+                method: "GET",
+                headers: {
+                    "Authorization": `Bearer ${token}`
+                },
+            });
 
-    }, [dispatch]);
+            const response = await fetch(request);
 
+            if (!response.ok) {
+                throw Error("Response not valid. " + response.status);
+            }
+
+            const reports = await response.json();
+
+            dispatch(setReportList(reports));
+        }
+
+        if (token) {
+            const role = JSON.parse(localStorage.getItem('user')).role;
+
+            if (role === "admin") {
+                getAllReports();
+            } else if (role === "user") {
+                const userId = JSON.parse(localStorage.getItem('user')).id;
+                getReportsFromUser(userId);
+            }
+        }
+
+    }, [dispatch, token]);
 
     return (
-        <div className="row my-3" id="report-list">
-            <div className="col-12 mb-5">
-                <h2 className="text-center">List of Reports</h2>
-            </div>
-            {reportState.reportList.length === 0 ?
-                (<div className="text-center">No reports available</div>) :
-                (reportState.reportList.map((report) => {
-                    return (
-                        <ReportInfo key={report._id} report={report} />
-                    );
-                }))
+        <Fragment>
+            {!token ?
+                <RequireLogin message={"In order to see your reports, it is required to be logged in."} /> :
+                <div className="row mb-5 pb-5" id="report-list">
+                    <div className="col-12 mb-5">
+                        <h2 className="text-center">List of Reports</h2>
+                    </div>
+                    {reportState.reportList.length === 0 ?
+                        (<div className="text-center">No reports available</div>) :
+                        (reportState.reportList.map((report) => {
+                            return (
+                                <ReportInfo key={report._id} report={report} />
+                            );
+                        }))
+                    }
+                </div>
             }
-        </div>
+        </Fragment>
     );
 }
 
