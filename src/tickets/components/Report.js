@@ -109,7 +109,7 @@ const Report = () => {
                                 <div className="text-center">
                                     <div className="d-grid gap-2 d-md-flex justify-content-center">
                                         <div className="col-12 ps-0">
-                                            {reportState.reportStatus === "validated" || reportState.reportStatus === "rejected" || role === "user" ?
+                                            {reportState.reportStatus === "approved" || reportState.reportStatus === "rejected" || role === "user" ?
                                                 (<></>) :
                                                 (<a href="#edit" className="darkBlueText me-4" data-bs-toggle="modal" data-bs-target="#updateModal">
                                                     <i className="bi bi-pencil-square"></i>
