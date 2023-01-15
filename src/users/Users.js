@@ -12,8 +12,15 @@ export default function Users(props) {
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
   const [updateErrorMessage, setUpdateErrorMessage] = useState('');
+  const tokenExpireDefault = new Date(new Date().getTime() + 1000 * 60 * 60); // 1 hour
+
 
   useEffect(() => {
+    const queryParams = new URLSearchParams(window.location.search);
+    const tokenExpired = queryParams.get('tokenExpired');
+    if (tokenExpired === 'true') {
+      setErrorMessage('Your session has expired. Please log in again.');
+    }
     // Check if user state variable is empty
     if (user == null) {
       const accessToken = localStorage.getItem('token');
@@ -60,6 +67,7 @@ export default function Users(props) {
       }else{
         const data = await response.json();
         localStorage.setItem('token', data.accessToken);
+        localStorage.setItem('tokenExpireDate', tokenExpireDefault);
         setProfile();
         setIsLoggedIn(true);
         setErrorMessage('');
@@ -82,6 +90,7 @@ export default function Users(props) {
     setIsLoggedIn(false);
     localStorage.removeItem('token');
     localStorage.removeItem('user');
+    localStorage.removeItem('tokenExpireDate');
     // reload page
     window.location.reload();
   }
