@@ -33,7 +33,6 @@ const TicketList = () => {
             const tickets = await response.json();
 
             dispatch(setTicketList(tickets));
-            dispatch(setValidationErrors(false));
         }
 
         async function getTicketsFromUser(id) {
@@ -53,7 +52,6 @@ const TicketList = () => {
             const tickets = await response.json();
 
             dispatch(setTicketList(tickets));
-            dispatch(setValidationErrors(false));
         }
 
         if (role === "admin") {
@@ -63,6 +61,10 @@ const TicketList = () => {
             getTicketsFromUser(userId);
         }
     }, []);
+
+    function onAlertClose() {
+        dispatch(setValidationErrors(false));
+    }
 
     return (
         <Fragment>
@@ -79,7 +81,7 @@ const TicketList = () => {
                                     <div className="toast-body">
                                     There are some problems with your request. Try again later!
                                     </div>
-                                    <button type="button" className="btn-close me-2 m-auto" data-bs-dismiss="toast" aria-label="Close"></button>
+                                    <button type="button" className="btn-close me-2 m-auto" data-bs-dismiss="toast" aria-label="Close" onClick={onAlertClose}></button>
                                 </div>
                             </div>
                         </div>)

@@ -54,8 +54,6 @@ const Report = () => {
             const report = await response.json();
             setReport(report);
             dispatch(setReportStatus(report.status));
-            dispatch(setReportValidationErrors(false));
-
             report?.messageId && fetchMessage(report.messageId);
         }
 
@@ -66,6 +64,9 @@ const Report = () => {
 
     }, [reportId, dispatch]);
 
+    function onAlertClose() {
+        dispatch(setReportValidationErrors(false));
+    }
 
     return (
         <Fragment>
@@ -83,7 +84,7 @@ const Report = () => {
                                         There are some problems with your request. Try again later!
 
                                     </div>
-                                    <button type="button" className="btn-close me-2 m-auto" data-bs-dismiss="toast" aria-label="Close"></button>
+                                    <button type="button" className="btn-close me-2 m-auto" data-bs-dismiss="toast" aria-label="Close" onClick={onAlertClose}></button>
                                 </div>
                             </div>
                         </div>) : (<></>)}
