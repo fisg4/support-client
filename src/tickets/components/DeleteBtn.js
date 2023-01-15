@@ -1,6 +1,10 @@
 import { useNavigate } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { setValidationErrors } from "../slices/ticketSlice";
+import { setReportValidationErrors } from "../slices/reportSlice";
 
 function DeleteBtn({ endpoint }) {
+    const dispatch = useDispatch();
     const navigate = useNavigate();
     const token = localStorage.getItem('token');
     const ticket = endpoint.includes("tickets") ? "ticket" : "report";
@@ -16,9 +20,11 @@ function DeleteBtn({ endpoint }) {
         const response = await fetch(request);
 
         if (!response.ok) {
+            ticket === "ticket" ? dispatch(setValidationErrors(true)) : dispatch(setReportValidationErrors(true));
             throw Error("Response not valid. " + response.status);
         }
 
+        ticket === "ticket" ? dispatch(setValidationErrors(false)) : dispatch(setReportValidationErrors(false));
         endpoint.includes("tickets") ? navigate("/support/tickets") : navigate("/support/reports");
 
     }
