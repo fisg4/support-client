@@ -1,12 +1,12 @@
 import { useDispatch } from "react-redux";
 import { addTicket, setValidationErrors } from "../slices/ticketSlice";
 
-function CreateModal({ endpoint }) {
+function CreateModal({ }) {
     const dispatch = useDispatch();
     const token = localStorage.getItem('token');
 
-    async function createTicket(endpoint, data) {
-        const request = new Request(`${endpoint}`, {
+    async function createTicket(data) {
+        const request = new Request("/api/v1/tickets/", {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
@@ -21,7 +21,7 @@ function CreateModal({ endpoint }) {
             throw Error("Response not valid. " + response.status);
         }
         const ticket = await response.json();
-
+        
         dispatch(setValidationErrors(false));
         dispatch(addTicket(ticket.content));
     }
@@ -55,7 +55,6 @@ function CreateModal({ endpoint }) {
                                     className="btn border-purple text-purple bg-blue mt-4"
                                     data-bs-dismiss="modal"
                                     onClick={() => createTicket(
-                                        endpoint,
                                         {
                                             "title": document.getElementById("ticketTitle").value,
                                             "text": document.getElementById("ticketText").value,

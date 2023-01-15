@@ -1,8 +1,11 @@
 .supportCard {
   border: 1px solid #851ff8 !important;
   border-radius: 5px !important;
-  padding: 1.5em !important;
   margin-bottom: 1em !important;
+}
+
+.ticketDetails {
+  border: 1px solid #851ff8 !important;
 }
 
 .darkBlueText {
@@ -11,4 +14,32 @@
 
 .darkBlueText:hover {
   color: #851ff8;
+}
+
+.bgBlue {
+  background-color: #eae7ff6e!important;
+}
+
+.bgGreen {
+  background-color: #c6fcc97c;
+}
+
+.hGreen {
+  background-color: #59de60dc;
+}
+
+.bgYellow {
+  background-color: #f9fcc672;
+}
+
+.hYellow {
+  background-color: #f6ff71;
+}
+
+.bgRed {
+  background-color: #fccfc672;
+}
+
+.hRed {
+  background-color: #ff8471;
 }
