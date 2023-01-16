@@ -115,7 +115,7 @@ const Ticket = () => {
                                                 </iframe>
                                             </div>
                                         </div>)
-                                        : (<p className="card-text">Suggested URL: {ticket.text}</p>)}
+                                        : ticket?.songId ?(<p className="card-text">Suggested URL: {ticket.text}</p>) : <p className="card-text">{ticket.text}</p>}
                                 </div>
                             </div>
                             <div className={ticketState.ticketPriority === "low" ? "rounded-bottom bgGreen"

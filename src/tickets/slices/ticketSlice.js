@@ -15,7 +15,7 @@ export const ticketSlice = createSlice({
       state.ticketList = action.payload;
     },
     addTicket: (state, action) => {
-      state.ticketList.push(action.payload);
+      state.ticketList.unshift(action.payload);
     },
     setTicketStatus: (state, action) => {
       state.ticketStatus = action.payload;

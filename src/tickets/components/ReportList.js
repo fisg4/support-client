@@ -26,8 +26,8 @@ const ReportList = () => {
             }
 
             const reports = await response.json();
-
-            dispatch(setReportList(reports));
+            const sortedReports = reports.slice().sort((a, b) => b.createDate.localeCompare(a.createDate));
+            dispatch(setReportList(sortedReports));
         }
 
         async function getReportsFromUser(id) {
@@ -45,8 +45,8 @@ const ReportList = () => {
             }
 
             const reports = await response.json();
-
-            dispatch(setReportList(reports));
+            const sortedReports = reports.slice().sort((a, b) => b.createDate.localeCompare(a.createDate));
+            dispatch(setReportList(sortedReports));
         }
 
         if (token) {
