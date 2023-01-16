@@ -66,7 +66,7 @@ const ReportList = () => {
         <Fragment>
             {!token ?
                 <RequireLogin message={"In order to see your reports, it is required to be logged in."} /> :
-                <div className="row mb-5 pb-5" id="report-list">
+                <div className="row my-5 pb-5" id="report-list">
                     <div className="col-12 mb-5">
                         <h2 className="text-center">List of Reports</h2>
                     </div>

@@ -73,11 +73,11 @@ const Report = () => {
             {!token ?
                 <RequireLogin message={"You can not manage your reports if you are not logged in the system."} /> :
                 <div className="row mb-5 pb-5" id="report-list">
-                    <div className="col-12 my-4 p-2">
+                    <div className="col-12 py-3 mb-5">
                         <h2 className="text-center">Report details</h2>
                     </div>
                     {reportState.reportValidationErrors ?
-                        (<div className="row d-flew justify-content-center mb-3">
+                        (<div className="row d-flew justify-content-center my-3">
                             <div className="toast align-items-center border-purple bg-blue show" role="alert" aria-live="assertive" aria-atomic="true">
                                 <div className="d-flex">
                                     <div className="toast-body">
@@ -89,7 +89,7 @@ const Report = () => {
                             </div>
                         </div>) : (<></>)}
                     <div className="col-12 col-md-8 offset-md-2">
-                        <div className="card text-center ticketDetails bgBlue">
+                        <div className="card text-center supportDetails bgBlue bottomBorder">
                             <div class="card-header bg-transparent">
                                 <h5 className="card-title my-2">{report.title?.toUpperCase()}</h5>
                             </div>

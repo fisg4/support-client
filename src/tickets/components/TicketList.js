@@ -70,12 +70,12 @@ const TicketList = () => {
         <Fragment>
             {!token ?
                 <RequireLogin message={"In order to see your tickets, it is required to be logged in."} /> :
-                <div className="row mb-5 pb-5" id="ticket-list">
+                <div className="row my-5 pb-5" id="ticket-list">
                     <div className="col-12">
                         <h2 className="text-center">List of Tickets</h2>
                     </div>
                     {ticketState.validationErrors ? (
-                        <div className="row d-flew justify-content-center mb-3">
+                        <div className="row d-flew justify-content-center my-3">
                             <div className="toast align-items-center border-purple bg-blue show" role="alert" aria-live="assertive" aria-atomic="true">
                                 <div className="d-flex">
                                     <div className="toast-body">
