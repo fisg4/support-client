@@ -31,8 +31,8 @@ const TicketList = () => {
             }
 
             const tickets = await response.json();
-
-            dispatch(setTicketList(tickets));
+            const sortedTickets = tickets.slice().sort((a, b) => b.createDate.localeCompare(a.createDate));
+            dispatch(setTicketList(sortedTickets));
         }
 
         async function getTicketsFromUser(id) {
@@ -50,8 +50,8 @@ const TicketList = () => {
             }
 
             const tickets = await response.json();
-
-            dispatch(setTicketList(tickets));
+            const sortedTickets = tickets.slice().sort((a, b) => b.createDate.localeCompare(a.createDate));
+            dispatch(setTicketList(sortedTickets));
         }
 
         if (role === "admin") {
