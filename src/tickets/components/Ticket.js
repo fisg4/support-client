@@ -69,12 +69,12 @@ const Ticket = () => {
         <Fragment>
             {!token ?
                 <RequireLogin message={"You can not manage your tickets if you are not logged in the system."} /> :
-                <div className="row mb-5 pb-5" id="ticket-list">
-                    <div className="col-12 my-4 p-2">
+                <div className="row my-5 pb-5">
+                    <div className="col-12 py-3 mb-5">
                         <h2 className="text-center">Ticket details</h2>
                     </div>
                     {ticketState.validationErrors ?
-                        <div className="row d-flew justify-content-center mb-3">
+                        <div className="row d-flew justify-content-center my-3">
                             <div id="validationEditError" className="toast align-items-center border-purple bg-blue show" role="alert" aria-live="assertive" aria-atomic="true">
                                 <div className="d-flex">
                                     <div className="toast-body">
@@ -85,9 +85,9 @@ const Ticket = () => {
                             </div>
                         </div> : <></>}
                     <div className="col-12 col-md-8 offset-md-2">
-                        <div className="card text-center ticketDetails">
-                            <div className={ticketState.ticketPriority === "low" ? "rounded-top hGreen"
-                                : ticketState.ticketPriority === "medium" ? "rounded-top hYellow" : "rounded-top hRed"}>
+                        <div className="card text-center supportDetails">
+                            <div className={ticketState.ticketPriority === "low" ? "rounded-top hGreen bottomBorder"
+                                : ticketState.ticketPriority === "medium" ? "rounded-top hYellow bottomBorder" : "rounded-top hRed bottomBorder"}>
                                 <div className="card-header bg-transparent">
                                     <h5 className="card-title my-2">{ticketState.ticketPriority?.toUpperCase()} PRIORITY</h5>
                                 </div>

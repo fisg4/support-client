@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
-import { Link } from 'react-router-dom';
 import { Card, CardBody, CardTitle, CardSubtitle, Button, Form, FormGroup, Input, Label } from 'reactstrap';
+import Support from '../tickets/Support';
+
 
 export default function Users(props) {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -24,7 +25,7 @@ export default function Users(props) {
     // Check if user state variable is empty
     if (user == null) {
       const accessToken = localStorage.getItem('token');
-      if (accessToken){
+      if (accessToken) {
         setProfile();
       }
     }
@@ -59,12 +60,12 @@ export default function Users(props) {
         headers: {
           'Content-Type': 'application/json'
         },
-        body: JSON.stringify({email, password})
+        body: JSON.stringify({ email, password })
       });
       // if the response is not ok setErrorMessage
       if (!response.ok) {
         setErrorMessage('Invalid email or password');
-      }else{
+      } else {
         const data = await response.json();
         localStorage.setItem('token', data.accessToken);
         localStorage.setItem('tokenExpireDate', tokenExpireDefault);
@@ -94,7 +95,7 @@ export default function Users(props) {
     // reload page
     window.location.reload();
   }
-  
+
   const handleUpdate = async (event) => {
     event.preventDefault();
 
@@ -110,7 +111,7 @@ export default function Users(props) {
           'Content-Type': 'application/json',
           Authorization: `Bearer ${accessToken}`
         },
-        body: JSON.stringify({email, username, password})
+        body: JSON.stringify({ email, username, password })
       })
         .then((response) => response.json())
         .then((data) => {
@@ -131,87 +132,74 @@ export default function Users(props) {
     <div>
       {isLoggedIn ? (
         <>
-        <div className="text-center mb-3">
-          <h1>Login successful</h1>
-          <Link to={`/support`}>
-            <div className="btn border-purple text-purple bg-blue btn-lg">
-              Go to support
+        <div className="mt-2 text-end">
+              <button className="btn border-purple text-purple bg-blu" onClick={handleSignOff}>Sign off</button>
             </div>
-          </Link>
-        </div>
-        <div className="text-center">
-          <Card className="mx-auto" style={{ width: '20rem' }}>
-            <CardBody>
-              <CardTitle>Usuario: {user.username}</CardTitle>
-              <CardSubtitle>Email: {user.email}</CardSubtitle>
-            </CardBody>
-          </Card>
-          <div className="mt-2">
-            <Button onClick={handleSignOff}>Sign off</Button>
+          <div className="text-center mb-3 mt-3">
+            <Support />
+            {showUpdateForm ? (
+              <div className="mt-2">
+                <Card className='d-flex justify-content-center w-50 mx-auto'>
+                  <CardBody>
+                    <CardTitle className='display-4 text-center'>Edit your info</CardTitle>
+                    {errorMessage && <p className='text-center text-danger'>{errorMessage}</p>}
+                    <Form onSubmit={handleUpdate}>
+                      <FormGroup>
+                        <Label for="email">Email</Label>
+                        <Input
+                          type="email"
+                          name="email"
+                          id="email"
+                          placeholder="Enter your email"
+                          value={email}
+                          onChange={(event) => setEmail(event.target.value)}
+                        />
+                      </FormGroup>
+                      <FormGroup>
+                        <Label for="username">Username</Label>
+                        <Input
+                          type="text"
+                          name="username"
+                          id="username"
+                          placeholder="Enter your username"
+                          value={username}
+                          onChange={(event) => setUsername(event.target.value)}
+                        />
+                      </FormGroup>
+                      <FormGroup>
+                        <Label for="password">Password</Label>
+                        <Input
+                          type="password"
+                          name="password"
+                          id="password"
+                          placeholder="Enter your password"
+                          value={password}
+                          onChange={(event) => setPassword(event.target.value)}
+                        />
+                      </FormGroup>
+                      <FormGroup>
+                        <Label for="confirmPassword">Confirm Password</Label>
+                        <Input
+                          type="password"
+                          name="confirmPassword"
+                          id="confirmPassword"
+                          placeholder="Confirm your password"
+                          value={confirmPassword}
+                          onChange={(event) => setConfirmPassword(event.target.value)}
+                        />
+                      </FormGroup>
+                      <Button type="submit" color="primary">
+                        Edit
+                      </Button>
+                    </Form>
+                  </CardBody>
+                </Card>
+              </div>
+            ) : null}
           </div>
-          {showUpdateForm ? (
-            <div className="mt-2">
-              <Card className='d-flex justify-content-center w-50 mx-auto'>
-                <CardBody>
-                  <CardTitle className='display-4 text-center'>Edit your info</CardTitle>
-        {errorMessage && <p className='text-center text-danger'>{errorMessage}</p>}
-        <Form onSubmit={handleUpdate}>
-          <FormGroup>
-            <Label for="email">Email</Label>
-            <Input
-              type="email"
-              name="email"
-              id="email"
-              placeholder="Enter your email"
-              value={email}
-              onChange={(event) => setEmail(event.target.value)}
-            />
-          </FormGroup>
-          <FormGroup>
-            <Label for="username">Username</Label>
-            <Input
-              type="text"
-              name="username"
-              id="username"
-              placeholder="Enter your username"
-              value={username}
-              onChange={(event) => setUsername(event.target.value)}
-            />
-          </FormGroup>
-          <FormGroup>
-            <Label for="password">Password</Label>
-            <Input
-              type="password"
-              name="password"
-              id="password"
-              placeholder="Enter your password"
-              value={password}
-              onChange={(event) => setPassword(event.target.value)}
-            />
-          </FormGroup>
-          <FormGroup>
-            <Label for="confirmPassword">Confirm Password</Label>
-            <Input
-              type="password"
-              name="confirmPassword"
-              id="confirmPassword"
-              placeholder="Confirm your password"
-              value={confirmPassword}
-              onChange={(event) => setConfirmPassword(event.target.value)}
-            />
-          </FormGroup>
-          <Button type="submit" color="primary">
-            Edit
-          </Button>
-        </Form>
-      </CardBody>
-    </Card>
-            </div>
-          ) : null}
-        </div>
 
         </>
-        
+
       ) : (
         <Card className="mx-auto" style={{ width: '20rem' }}>
           <CardBody>

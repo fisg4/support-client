@@ -1,19 +1,27 @@
-.supportCard {
-  border: 1px solid #851ff8 !important;
-  border-radius: 5px !important;
-  margin-bottom: 1em !important;
+.supportDetails {
+  border: 2px solid #851ff8 !important;
+  border-radius: 8px !important;
+  margin-bottom: 1em!important;
+  box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15)!important;
 }
 
-.ticketDetails {
-  border: 1px solid #851ff8 !important;
+.supportCard {
+  border: 2px solid #5343f1!important;
+  border-radius: 10px!important;
+  margin-bottom: 1em!important;
+  box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15)!important;
+}
+
+.bottomBorder {
+  border-bottom: 2px solid #851ff8 !important;
 }
 
 .darkBlueText {
-  color: #5343f1;
+  color: #5343f1 !important;
 }
 
 .darkBlueText:hover {
-  color: #851ff8;
+  color: #851ff8 !important;
 }
 
 .bgBlue {

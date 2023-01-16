@@ -9,21 +9,22 @@ const Support = () => {
     <Fragment>
       {!token ? <RequireLogin message={"In order to see your tickets and reports, it is required to be logged in."} /> :
         <div className="container">
-          <div className="row my-3">
+          <div className="row my-4">
             <div className="col-12 text-center">
-              <h2>Welcome to FastMusik support center</h2>
-              <p>FastMusik's support center allows you to view and create new tickets and reports. Please contact us whenever you have a problem.</p>
+              <h2 className="my-4 pb-4">Welcome to FastMusik support center</h2>
+              <p>FastMusik's support center allows you to view and create new tickets and reports.</p> 
+              <p>Please contact us whenever you have a problem.</p>
             </div>
-            <div className="row my-3">
+            <div className="row my-4">
               <div className="d-grid gap-2 d-md-flex justify-content-center">
                 <Link to={`/support/tickets`}>
                   <div className="btn border-purple text-purple bg-blue btn-lg">
-                    Tickets
+                    Go to ticket list
                   </div>
                 </Link>
                 <Link to={`/support/reports`}>
                   <div className="btn border-purple text-purple bg-blue btn-lg">
-                    Reports
+                    Go to report list
                   </div>
                 </Link>
               </div>

@@ -16,6 +16,7 @@ const App = () => {
   return (
     <div className="min-vh-100 d-flex flex-column justify-content-between">
       <BrowserRouter>
+        <div>
         <Header />
         <main className="container my-4">
           <Routes>
@@ -28,6 +29,7 @@ const App = () => {
             <Route path="*" element={<ErrorPage />} />
           </Routes>
         </main>
+        </div>
         <Footer />
       </BrowserRouter>
     </div>
