@@ -1,4 +1,4 @@
-import logo from '../images/fastMusik_logo.svg';
+import logo from '../images/fastMusik_logo.png';
 import perfil from '../images/user-icon.png';
 import { Link, Outlet } from 'react-router-dom';
 import { useNavigate } from "react-router-dom";
